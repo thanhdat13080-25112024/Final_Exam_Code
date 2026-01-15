@@ -3,6 +3,7 @@
 #include <string>
 #include <cctype>
 #include <chrono>
+#include <iterator>
 using namespace std;
 class thisinh {
     private:
@@ -21,58 +22,70 @@ class thisinh {
                 return true;
             }
         void input(int index) {
-            cout<<"Vui lòng nhập thông tin thí sinh thứ "<<index+1<<":"<<endl;
-            cout<<"Số báo danh:" << endl;
+            cout<<"Please enter the information for the following candidate "<<index+1<<":"<<endl;
+            cout<<"Registration number:" << endl;
             cin>>id;
             cin.ignore();
-            cout<<"Họ và tên:" << endl;
+            cout<<"Full name:" << endl;
             do {
                 getline(cin, ten);
                 if(!isValidName(ten)) {
-                    cout<<"Tên không hợp lệ!"<<endl;
-                    cout<<"Vui lòng nhập lại họ và tên:"<<endl;
+                    cout<<"Invalid name!"<<endl;
+                    cout<<"Please re-enter the full name:"<<endl;
                 }
             } while (!isValidName(ten));
-            cout<<"Phòng thi:" << endl;
+            cout<<"Examination room:" << endl;
             cin>>phongthi;
-            cout<<"Điểm thi:" << endl;
+            cout<<"Exam scores:" << endl;
             cin>>diemthi;
         }
         void display() {
-            cout<<"Số báo danh: "<<id<<endl;
-            cout<<"Họ và tên: "<<ten<<endl;
-            cout<<"Phòng thi: "<<phongthi<<endl;
-            cout<<"Điểm thi: "<<diemthi<<endl;
+            cout<<"Registration number: "<<id<<endl;
+            cout<<"Full name: "<<ten<<endl;
+            cout<<"Examination room: "<<phongthi<<endl;
+            cout<<"Exam scores: "<<diemthi<<endl;
         }
     };
 int main() {
-    cout<<"------Menu Quản Lý Thí Sinh------"<<endl;
-    cout<<"1. Thêm thí sinh"<<endl;
-    cout<<"2. Hiển thị danh sách thí sinh"<<endl;
-    cout<<"3. Tìm thí sinh theo số báo danh"<<endl;
-    cout<<"4. Xóa thí sinh theo số báo danh"<<endl;
-    cout<<"5. Sắp xếp thí sinh theo điểm thi"<<endl;
     int choice;
+    bool tieptuc = true;
+    while(tieptuc) {
+    cout<<"------Menu Candidate management ------"<<endl;
+    cout<<"1. Add more candidates"<<endl;
+    cout<<"2. Display the list of candidates."<<endl;
+    cout<<"3. Search for candidates"<<endl;
+    cout<<"4. Remove candidate"<<endl;
+    cout<<"5. Sort candidates by score"<<endl;
     cin>>choice;
     if (choice <= 0 || choice > 5) {
-        cout<<"Lựa chọn không hợp lệ!"<<endl;
+        cout<<"Invalid selection!"<<endl;
         return 0;
     }
+    list<thisinh> danhsachthisinh;
     switch(choice) {
         case 1: {
-            list<thisinh> danhsachthisinh;
             int n;
-            cout<< "Số thí sinh thêm vào danh sách: "<<endl;
+            cout<< "Number of candidates to add to the list: "<<endl;
             cin>>n;
             do{
                 for (int i = 0; i < n; i++) {
                 thisinh candidates;
                 candidates.input(i);
                 danhsachthisinh.push_back(candidates);
-                cout<<"Đã nhập xong thí sinh thứ "<<i+1<<endl;
+                cout<<"Successfully added candidate number "<<i+1<<endl;
                 }
             } while (danhsachthisinh.size() == n-1);
-            cout<<"Đã hoàn tất nhập xong "<<n<<" thí sinh"<<endl;
+            break;
         }
+        case 2: {
+            for (int i = 0; i < danhsachthisinh.size(); i++) {
+                auto it = danhsachthisinh.begin();
+                advance(it, i);
+                it->display();
+                return 0;
+            }          
+            break;  
     }
+}
+}
 }

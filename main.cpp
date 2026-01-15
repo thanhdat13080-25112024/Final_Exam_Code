@@ -2,8 +2,6 @@
 #include <list>
 #include <string>
 #include <cctype>
-#include <chrono>
-#include <iterator>
 using namespace std;
 class thisinh {
     private:
@@ -38,6 +36,11 @@ class thisinh {
             cin>>phongthi;
             cout<<"Exam scores:" << endl;
             cin>>diemthi;
+            if (diemthi < 0 || diemthi > 10) {
+                cout<<"Invalid score!"<<endl;
+                cout<<"Please re-enter the exam scores:"<<endl;
+                cin>>diemthi;
+            }
         }
         void display() {
             cout<<"Registration number: "<<id<<endl;
@@ -49,6 +52,7 @@ class thisinh {
 int main() {
     int choice;
     bool tieptuc = true;
+    list<thisinh> danhsachthisinh;
     while(tieptuc) {
     cout<<"------Menu Candidate management ------"<<endl;
     cout<<"1. Add more candidates"<<endl;
@@ -56,12 +60,12 @@ int main() {
     cout<<"3. Search for candidates"<<endl;
     cout<<"4. Remove candidate"<<endl;
     cout<<"5. Sort candidates by score"<<endl;
+    cout<<"6. Exit"<<endl;
     cin>>choice;
-    if (choice <= 0 || choice > 5) {
+    if (choice <= 0 || choice > 6) {
         cout<<"Invalid selection!"<<endl;
         return 0;
     }
-    list<thisinh> danhsachthisinh;
     switch(choice) {
         case 1: {
             int n;
@@ -78,14 +82,31 @@ int main() {
             break;
         }
         case 2: {
+            if (danhsachthisinh.empty()) {
+                cout<<"The candidate list is empty!"<<endl;
+                break;
+            }
             for (int i = 0; i < danhsachthisinh.size(); i++) {
-                auto it = danhsachthisinh.begin();
+                auto it = next(danhsachthisinh.begin());
                 advance(it, i);
                 it->display();
-                return 0;
-            }          
-            break;  
+                break;
+            break;
+            }
+        }
+        case 3: {
+            // Search for candidates
+        }
+        case 4: {
+            // Remove candidate
+        }
+        case 5: {
+            // Sort candidates by score
+        }
+        case 6: 
+            tieptuc = false;
+            cout<<"Exiting the program!"<<endl;
+            break;           
     }
-}
 }
 }

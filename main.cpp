@@ -88,9 +88,8 @@ int main() {
             }
             for (int i = 0; i < danhsachthisinh.size(); i++) {
                 auto it = next(danhsachthisinh.begin());
-                advance(it, i);
+                advance(it, 1);
                 it->display();
-                break;
             break;
             }
         }

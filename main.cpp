@@ -78,7 +78,7 @@ public:
                 cout << "Invalid score! (0–10)\n";
                 continue;
             }
-            cout<<endl<<"Import successful"<<endl;
+            cout<<endl<<"Import successful"<<endl<<endl;
             break;
         }
     }
@@ -94,36 +94,31 @@ public:
 int main() {
     int choice;
     list<candidate_attribute> candidate_list;
+    int n;
+    cout << "Enter number of candidates: ";
+    if (!candidate_attribute::readInt(n))
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    for (int i = 0; i < n; i++) {
+        candidate_attribute c;
+        c.input(candidate_list, i + 1);
+        candidate_list.push_back(c);
+    }
 
     while (true) {
         cout << "\n------Menu Candidate management ------\n";
-        cout << "1. Add more candidates\n";
-        cout << "2. Display the list of candidates\n";
-        cout << "3. Search for candidates\n";
-        cout << "4. Sort candidates by score\n";
-        cout << "5. Exit\n";
+        cout << "1. Display the list of candidates\n";
+        cout << "2. Search for candidates\n";
+        cout << "3. Sort candidates by score\n";
+        cout << "4. Exit\n";
         cout << "Enter choice: ";
 
-        if (!candidate_attribute::readInt(choice) || choice < 1 || choice > 5) {
+        if (!candidate_attribute::readInt(choice) || choice < 1 || choice > 4) {
             cout << "Invalid choice!\n";
             continue;
         }
 
         switch (choice) {
-            case 1: {
-                int n;
-                cout << "Enter number of candidates: ";
-                if (!candidate_attribute::readInt(n)) break;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                for (int i = 0; i < n; i++) {
-                    candidate_attribute c;
-                    c.input(candidate_list, i + 1);
-                    candidate_list.push_back(c);
-                }
-                cout<<endl<<endl;
-                break;
-            }
-            case 2:
+            case 1:
                 if (candidate_list.empty()) {
                     cout << "The list is empty! Nothing to sort." << endl;
                     cout<<endl<<endl;
@@ -133,7 +128,7 @@ int main() {
                 cout<<endl<<endl;
                 break;
 
-            case 3: {
+            case 2: {
                 string searchID;
                 cout << "Enter ID to search: ";
                 cin >> searchID;
@@ -149,7 +144,7 @@ int main() {
                 cout<<endl<<endl;
                 break;
             }
-            case 4:
+            case 3:
                 if (candidate_list.empty()) {
                     cout << "The list is empty! Nothing to sort." << endl;
                     cout<<endl<<endl;
@@ -178,7 +173,7 @@ int main() {
                     cout<<endl<<endl;
                 }
                 break;
-            case 5:
+            case 4:
                 return 0;
         }
     }

@@ -15,23 +15,25 @@ class candidate_attribute {
                 return false;
             } 
             for (char c : name) {
-                while (isdigit(c)) {
+                if (isdigit(c)) {
                     return false;
                 }
                 if(c == '!' || c == '@' || c == '$' || c == '%' || c == '&' || c == '*') {
                     return false;
                 }
-                return true;
             }
+            return true;
         }
         void input() {
             cout<<"Enter the id of student: "<<endl;
             cin>>id;
-            while (isValidName(name)) {
-                cout<<"Enter the full name of student: "<<endl;
-                getline(cin, name);
-                if (!isValidName(name)) {
-                    cout<<"Invalid name!"<<endl;
+            while (isValidName(name)) {                                     // 
+                cout<<"Enter the full name of student: "<<endl;             // 
+                cin.ignore();                                               //                                         
+                getline(cin, name);                                         //     error               
+                if (!isValidName(name)) {                                   // 
+                    cout<<"Invalid name!"<<endl;                            //
+                    continue;                                               //
             } else {
                 break;
             }
@@ -46,27 +48,36 @@ class candidate_attribute {
                 } 
                 }
         }
-        void display(int index) {
-            cout<<"Information of candidate "<<index+1<<endl;
+        void display() {
             cout<<"ID: "<<id<<endl;
             cout<<"Name: "<<name<<endl;
             cout<<"Room: "<<room<<endl;
             cout<<"Score: "<<score<<endl;
         }
-        void find(string search_id) {
-            cout<<"Enter the id to search: "<<endl;
-            cin>>search_id;
-            for (char c : id) {
-                for (char d : search_id) {
-                    if (c == d) {
-                        cout<<"Found candidate with ID: "<<search_id<<endl;
-                    }
-                }
-                
-            }
-
-        }
+        
 };
 int main() {
-    
+    int choice;
+    list<candidate_attribute> candidate_list;
+    while (true) {
+        cout<<"------Menu Candidate management ------"<<endl;
+        cout<<"1. Add more candidates"<<endl;
+        cout<<"2. Display the list of candidates."<<endl;
+        cout<<"3. Search for candidates"<<endl;
+        cout<<"4. Remove candidate"<<endl;
+        cout<<"5. Sort candidates by score"<<endl;
+        cout<<"6. Exit"<<endl;
+        cin>>choice;
+        if (choice < 0 || choice > 6) {
+            cout<<"Invalid choice! Please re-enter your choice."<<endl;
+            continue;
+        } else {
+            break;
+        }
+    }
+    switch (choice) {
+        case 1: {
+
+        }
+    }
 }

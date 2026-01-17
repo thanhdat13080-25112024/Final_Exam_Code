@@ -11,16 +11,9 @@ class candidate_attribute {
         double score;
     public:
         bool isValidName(string name) {
-            if (name.empty()) {
-                return false;
-            } 
+            if (name.empty()) return false;
             for (char c : name) {
-                if (isdigit(c)) {
-                    return false;
-                }
-                if(c == '!' || c == '@' || c == '$' || c == '%' || c == '&' || c == '*' || c == '(' || c == ')' || c == '-' || c == '+' || c == '=' || c == '{' || c == '}' || c == '[' || c == ']' || c == '|' || c == '\\' || c == ':' || c == ';' || c == '"' || c == '\'' || c == '<' || c == '>' || c == ',' || c == '.' || c == '?' || c == '/') {
-                    return false;
-                }
+                if (isdigit(c) || !isalpha(c)) return false;
             }
             return true;
         }
@@ -45,23 +38,33 @@ class candidate_attribute {
             while (true) {
                 cout<<"Enter the score: "<<endl;
                 cin>>score;
-                if (score <= 6 && score >= 1) {
+                if (score <= 10 && score >= 0) {
                     break;
                 } else {
+                    cout<<"Invalid score! Score must be between 0 and 10."<<endl;
                     continue;
-                }
+                    }
                 }
             cout<<"Input successful!"<<endl;
         }
         void display() {
-            cout<<"ID: "<<id<<endl;
-            cout<<"Name: "<<name<<endl;
-            cout<<"Room: "<<room<<endl;
+            cout<<"ID: "<<id <<" ";
+            cout<<"Name: "<<name <<" ";
+            cout<<"Room: "<<room <<" ";
             cout<<"Score: "<<score<<endl;
         }
-        
 };
+bool exit_function() {
+    cout<<"------Menu------"<<endl;
+    cout<<"1.Exit to main menu"<<endl;
+    cout<<"2.Exit program"<<endl;
+    int choice_1;
+    cin>>choice_1;
+    if (choice_1 == 2) exit(0);
+    return true;
+}
 int main() {
+    
     int choice;
     list<candidate_attribute> candidate_list;
     while (true) {
@@ -77,23 +80,37 @@ int main() {
             cout<<"Invalid choice! Please re-enter your choice."<<endl;
             continue;
         } else {
-            break;
-        }
-    }
-    switch (choice) {
-        case 1: {
-            cout<<"Enter the number of candidates to add: "<<endl;
-            int n;
-            cin>>n;
-            for (int i = 0; i < n ; i++) {
-                candidate_attribute candidate;
-                candidate.input();
-                candidate_list.push_back(candidate);
-            }
-        }
-        case 2: {
-            for (auto& candidate : candidate_list) {
-                candidate.display();
+            switch (choice) {
+                case 1: {
+                    cout<<"Enter the number of candidates to add: "<<endl;
+                    int n;
+                    cin>>n;
+                    for (int i = 0; i < n ; i++) {
+                        cout<<"Enter the information of candidate number "<<i+1<<":"<<endl;
+                        candidate_attribute candidate;
+                        candidate.input();
+                        candidate_list.push_back(candidate);
+                    }
+                    if (exit_function()) break;
+                }   
+                case 2: {
+                    for (auto& candidate : candidate_list) {
+                        candidate.display();
+                    }
+                    if (exit_function()) break;
+                }
+                case 3: {
+
+                }
+                case 4: {
+
+                }
+                case 5: {
+
+                }
+                case 6: {
+                    exit(0);
+                }
             }
         }
     }

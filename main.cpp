@@ -29,9 +29,9 @@ class candidate_attribute {
                     cout<<"Enter the full name of student: "<<endl;
                     getline(cin, name);
                     continue;                                          
-                } else {
                     break;
-                    }   
+                }
+                break;
             }
             cout<<"Enter the exam room number: "<<endl;
             cin>>room;
@@ -40,11 +40,8 @@ class candidate_attribute {
                 cin>>score;
                 if (score <= 10 && score >= 0) {
                     break;
-                } else {
-                    cout<<"Invalid score! Score must be between 0 and 10."<<endl;
-                    continue;
-                    }
-                }
+                } else continue;
+            }
             cout<<"Input successful!"<<endl;
         }
         void display() {
@@ -97,7 +94,7 @@ int main() {
                     for (auto& candidate : candidate_list) {
                         candidate.display();
                     }
-                    if (exit_function()) break;
+                    continue;
                 }
                 case 3: {
 
@@ -115,3 +112,4 @@ int main() {
         }
     }
 }
+// Thiếu: case 3,4,5 trong switch, check trùng id, list trống ở case 2,3,4,5(trống thì thêm cout báo trống)

@@ -18,7 +18,7 @@ class candidate_attribute {
                 if (isdigit(c)) {
                     return false;
                 }
-                if(c == '!' || c == '@' || c == '$' || c == '%' || c == '&' || c == '*') {
+                if(c == '!' || c == '@' || c == '$' || c == '%' || c == '&' || c == '*' || c == '(' || c == ')' || c == '-' || c == '+' || c == '=' || c == '{' || c == '}' || c == '[' || c == ']' || c == '|' || c == '\\' || c == ':' || c == ';' || c == '"' || c == '\'' || c == '<' || c == '>' || c == ',' || c == '.' || c == '?' || c == '/') {
                     return false;
                 }
             }
@@ -27,26 +27,31 @@ class candidate_attribute {
         void input() {
             cout<<"Enter the id of student: "<<endl;
             cin>>id;
-            while (isValidName(name)) {                                     // 
-                cout<<"Enter the full name of student: "<<endl;             // 
-                cin.ignore();                                               //                                         
-                getline(cin, name);                                         //     error               
-                if (!isValidName(name)) {                                   // 
-                    cout<<"Invalid name!"<<endl;                            //
-                    continue;                                               //
-            } else {
-                break;
-            }
+            cout<<"Enter the full name of student: "<<endl; 
+            cin.ignore();
+            getline(cin, name);
+            while (true) {
+                if (!isValidName(name)) {                                
+                    cout<<"Invalid name!"<<endl;
+                    cout<<"Enter the full name of student: "<<endl;
+                    getline(cin, name);
+                    continue;                                          
+                } else {
+                    break;
+                    }   
             }
             cout<<"Enter the exam room number: "<<endl;
             cin>>room;
             while (true) {
                 cout<<"Enter the score: "<<endl;
                 cin>>score;
-                if (score <= 0 || score >= 10) {
+                if (score <= 6 && score >= 1) {
                     break;
-                } 
+                } else {
+                    continue;
                 }
+                }
+            cout<<"Input successful!"<<endl;
         }
         void display() {
             cout<<"ID: "<<id<<endl;
@@ -77,7 +82,19 @@ int main() {
     }
     switch (choice) {
         case 1: {
-
+            cout<<"Enter the number of candidates to add: "<<endl;
+            int n;
+            cin>>n;
+            for (int i = 0; i < n ; i++) {
+                candidate_attribute candidate;
+                candidate.input();
+                candidate_list.push_back(candidate);
+            }
+        }
+        case 2: {
+            for (auto& candidate : candidate_list) {
+                candidate.display();
+            }
         }
     }
 }

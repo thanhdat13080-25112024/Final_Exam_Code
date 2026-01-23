@@ -40,26 +40,20 @@ class candidate_attribute {
                 cin>>score;
                 if (score <= 10 && score >= 0) {
                     break;
-                } else continue;
+                } else {
+                    cout<<"Invalid score! Score must be between 0 and 10."<<endl;
+                    continue;
+                }
             }
             cout<<"Input successful!"<<endl;
         }
         void display() {
-            cout<<"ID: "<<id <<" ";
-            cout<<"Name: "<<name <<" ";
-            cout<<"Room: "<<room <<" ";
+            cout<<"ID: "<<id <<" | ";
+            cout<<"Name: "<<name <<" | ";
+            cout<<"Room: "<<room <<" | ";
             cout<<"Score: "<<score<<endl;
         }
 };
-bool exit_function() {
-    cout<<"------Menu------"<<endl;
-    cout<<"1.Exit to main menu"<<endl;
-    cout<<"2.Exit program"<<endl;
-    int choice_1;
-    cin>>choice_1;
-    if (choice_1 == 2) exit(0);
-    return true;
-}
 int main() {
     
     int choice;
@@ -69,11 +63,10 @@ int main() {
         cout<<"1. Add more candidates"<<endl;
         cout<<"2. Display the list of candidates."<<endl;
         cout<<"3. Search for candidates"<<endl;
-        cout<<"4. Remove candidate"<<endl;
-        cout<<"5. Sort candidates by score"<<endl;
-        cout<<"6. Exit"<<endl;
+        cout<<"4. Sort candidates by score"<<endl;
+        cout<<"5. Exit"<<endl;
         cin>>choice;
-        if (choice < 0 || choice > 6) {
+        if (choice < 0 || choice > 5) {
             cout<<"Invalid choice! Please re-enter your choice."<<endl;
             continue;
         } else {
@@ -88,11 +81,15 @@ int main() {
                         candidate.input();
                         candidate_list.push_back(candidate);
                     }
-                    if (exit_function()) break;
+                    continue;
                 }   
                 case 2: {
-                    for (auto& candidate : candidate_list) {
-                        candidate.display();
+                    if (candidate_list.empty()) {
+                        cout<<"The list is empty!"<<endl;
+                    } else {
+                        for (auto& candidate : candidate_list) {
+                            candidate.display();
+                        }
                     }
                     continue;
                 }
@@ -100,16 +97,19 @@ int main() {
 
                 }
                 case 4: {
-
+                    cout<<"------Menu Candidate management ------"<<endl;
+                    cout<<"1. Sort max to min: "<<endl;
+                    cout<<"2. Sort min to max: "<<endl;
+                    int sort_choice;
+                    cin>>sort_choice;
+                    if (sort_choice == 1) {
+                        
                 }
                 case 5: {
-
-                }
-                case 6: {
                     exit(0);
                 }
             }
         }
     }
 }
-// Thiếu: case 3,4,5 trong switch, check trùng id, list trống ở case 2,3,4,5(trống thì thêm cout báo trống)
+// Thiếu: case 3,4,5 trong switch, check trùng id, list trống ở case 2,3,4(trống thì thêm cout báo trống)
